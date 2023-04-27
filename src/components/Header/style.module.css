@@ -1,0 +1,35 @@
+.header {
+    max-width: 900px;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 auto 20px;
+    border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+    padding: 20px 0 20px;
+    margin-bottom: 20px;
+}
+
+.header__links {
+    display: flex;
+    margin-left: 10px;
+  } 
+
+.header__links_nav {
+  margin: 10px;
+}
+
+.menu__link {
+  font-size: 20px;
+  text-decoration: none;
+  color: black;
+}
+
+.menu__link_active {
+  color: #888084;
+}
+
+@media screen and (max-width: 320px) {
+    .header {
+     max-width: 320px;
+     padding-top: 28px;
+    }
+ } 
