@@ -27,7 +27,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 export default function Settings({ handleOpen, forecasts, theme, handleDelete, handleOpenEditModal }) {
-  console.log(forecasts);
+
   return (
     <>
       {forecasts.length > 0 ? (

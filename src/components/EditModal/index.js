@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -15,7 +15,7 @@ const style = {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 500,
-    height: 400,
+    height: 500,
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -23,8 +23,6 @@ const style = {
 };
 
 export default function EditModal({ handleClose, setForecasts, setConfig, config, editModalState }) {
-    const [searchText, setSearchText] = useState("");
-
 
     const handleClick = () => {
         setForecasts((prev) => [config]);
@@ -41,6 +39,7 @@ export default function EditModal({ handleClose, setForecasts, setConfig, config
                     <Grid container spacing={2} flexDirection="column">
                         <Grid item>
                             <TextField
+                                label="Name"
                                 fullWidth
                                 value={config.name}
                                 variant="outlined"
@@ -50,15 +49,38 @@ export default function EditModal({ handleClose, setForecasts, setConfig, config
                             />
                         </Grid>
                         <Grid item>
-                            <TextField
-                                fullWidth
-                                value={config.type}
-                                label="Type"
-                                variant="outlined"
-                                onChange={(e) => {
-                                    setConfig((prev) => ({ ...prev, type: e.target.value}));
-                                }}
-                            />
+                        <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Index</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={config.type}
+                                    label="Index"
+                                    onChange={(e) => {
+                                        setConfig((prev) => ({ ...prev, typeChart: e.target.value }));
+                                    }}
+                                >
+                                    <MenuItem value={'temp'}>Temprature</MenuItem>
+                                    <MenuItem value={'humidity'}>Humidity</MenuItem>
+                                </Select>
+                            </FormControl>
+                            </Grid>
+                            <Grid item>
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Type</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={config.type}
+                                    label="Type"
+                                    onChange={(e) => {
+                                        setConfig((prev) => ({ ...prev, type: e.target.value }));
+                                    }}
+                                >
+                                    <MenuItem value={'line'}>Line</MenuItem>
+                                    <MenuItem value={'column'}>Column</MenuItem>
+                                </Select>
+                            </FormControl>
                         </Grid>
                         <Grid item>
                             <FormControl fullWidth>
@@ -69,7 +91,7 @@ export default function EditModal({ handleClose, setForecasts, setConfig, config
                                     value={config.color}
                                     label="Color"
                                     onChange={(e) => {
-                                        setConfig((prev) => ({ ...prev, color: e.target.value}));
+                                        setConfig((prev) => ({ ...prev, color: e.target.value }));
                                     }}
                                 >
                                     <MenuItem value={'red'}>Red</MenuItem>

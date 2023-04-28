@@ -16,7 +16,7 @@ const style = {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 500,
-    height: 400,
+    height: 500,
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -83,14 +83,21 @@ export default function BasicModal({ modalState, handleClose, setForecasts, conf
                             />
                         </Grid>
                         <Grid item>
-                            <TextField
-                                fullWidth
-                                label="Type"
-                                variant="outlined"
-                                onChange={(e) => {
-                                    setConfig((prev) => ({ ...prev, type: e.target.value, id: uuidv4()}));
-                                }}
-                            />
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Type</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={config.type}
+                                    label="Type"
+                                    onChange={(e) => {
+                                        setConfig((prev) => ({ ...prev, type: e.target.value, id: uuidv4() }));
+                                    }}
+                                >
+                                    <MenuItem value={'line'}>Line</MenuItem>
+                                    <MenuItem value={'column'}>Column</MenuItem>
+                                </Select>
+                            </FormControl>
                         </Grid>
                         <Grid item>
                             <FormControl fullWidth>
@@ -101,12 +108,29 @@ export default function BasicModal({ modalState, handleClose, setForecasts, conf
                                     value={config.color}
                                     label="Color"
                                     onChange={(e) => {
-                                        setConfig((prev) => ({ ...prev, color: e.target.value}));
+                                        setConfig((prev) => ({ ...prev, color: e.target.value }));
                                     }}
                                 >
                                     <MenuItem value={'red'}>Red</MenuItem>
                                     <MenuItem value={'green'}>Green</MenuItem>
                                     <MenuItem value={'yellow'}>Yellow</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item>
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Data</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={config.typeChart}
+                                    label="Color"
+                                    onChange={(e) => {
+                                        setConfig((prev) => ({ ...prev, typeChart: e.target.value }));
+                                    }}
+                                >
+                                    <MenuItem value={'temp'}>Temprature</MenuItem>
+                                    <MenuItem value={'humidity'}>Humidity</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
