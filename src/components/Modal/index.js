@@ -65,7 +65,8 @@ export default function BasicModal({ modalState, handleClose, setForecasts, conf
                         <Grid item>
                             <TextField
                                 fullWidth
-                                label="City"
+                                name="City"
+                                label="Enter city (ex. Moscow)"
                                 variant="outlined"
                                 onChange={(e) => {
                                     setSearchText(e.target.value);

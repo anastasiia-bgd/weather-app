@@ -8,6 +8,7 @@ import MainPage from "./components/MainPage";
 import Modal from "./components/Modal";
 import { createTheme } from "@mui/material/styles";
 import EditModal from "./components/EditModal";
+
 import DataFilter from "./components/DataFilter"
 
 function App({children}) {
@@ -51,8 +52,7 @@ function App({children}) {
 
         <div className="app">
             <div className="container">
-                <Header location={location} setLocation={setLocation} />
-               
+                <Header location={location} setLocation={setLocation} handleOpen={handleOpenModal} />
                 <Routes>
                     <Route path="/" element={<MainPage forecast={forecast} handleOpen={handleOpenModal} forecasts={forecasts} />} />
                     <Route path="/settings" element={<Settings handleOpen={handleOpenModal} forecasts={forecasts}
