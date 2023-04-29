@@ -2,10 +2,11 @@ import {Grid} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Chart from "../Chart/index.";
 import Empty from "../EmptyPage";
+import EmptyPage from "../EmptyPage";
 
 
 export default function MainPage({ forecasts }) {
-// console.log(forecasts);
+console.log(forecasts);
 
     const [data, setData] = useState([]);
 
@@ -27,7 +28,7 @@ export default function MainPage({ forecasts }) {
             ) : (
                 <Grid container>
                     <Grid item xs={12} sm={6} lg={6} style={{ margin: "0 auto" }}>
-                        <Empty />
+                        <EmptyPage />
                     </Grid>
                 </Grid>
             )}

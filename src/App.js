@@ -46,10 +46,7 @@ function App({children}) {
         setForecasts(prevState => prevState.filter(el => el.id !== id))
     }
 
-
-
     return (
-
         <div className="app">
             <div className="container">
                 <Header location={location} setLocation={setLocation} handleOpen={handleOpenModal} />
@@ -64,6 +61,7 @@ function App({children}) {
                     setModalState={setModalState}
                     handleOpen={handleOpenModal}
                     handleClose={handleCloseModal}
+                    forecasts={forecasts}
                     setForecasts={setForecasts}
                     setForecast={setForecast}
                     location={location}

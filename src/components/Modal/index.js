@@ -9,6 +9,11 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import dayjs from 'dayjs';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const style = {
     position: "absolute",
@@ -23,10 +28,11 @@ const style = {
     p: 4,
 };
 
-export default function BasicModal({ modalState, handleClose, setForecasts, config, setConfig }) {
+export default function BasicModal({ modalState, handleClose, setForecasts, config, setConfig, forecasts }) {
     const { v4: uuidv4 } = require('uuid');
     const [searchText, setSearchText] = useState("");
-
+    // const [serchStartData, setSerchStartData] = useState(dayjs('2023-04-14'));
+    // const [serchEndData, setSerchEndData] = useState(dayjs('2023-04-18'))
     const debouncedSearchText = useDebounce(searchText, 1000);
 
     useEffect(() => {
@@ -35,13 +41,17 @@ export default function BasicModal({ modalState, handleClose, setForecasts, conf
         }
     }, [debouncedSearchText]);
 
+    useEffect(() => {
+        setConfig((prev) => ({...prev, id: uuidv4()}))
+    }, [forecasts]);
+
     const handleClick = () => {
         setForecasts((prev) => [config, ...prev]);
         handleClose();
     };
 
     const handleFetch = (location) => {
-        fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=metric&appid=4dbbf70b1cb6ba72b3f175bc70c3a74a`)
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=metric&appid=4dbbf70b1cb6ba72b3f175bc70c3a74a&`)
             .then((response) => response.json())
             .then((data) => {
                 if (data) {
@@ -56,93 +66,95 @@ export default function BasicModal({ modalState, handleClose, setForecasts, conf
 
     return (
         <div>
-            <Modal open={modalState} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" color="text.secondary">
-                        Add new chart
-                    </Typography>
-                    <Grid container spacing={2} flexDirection="column">
-                        <Grid item>
-                            <TextField
-                                fullWidth
-                                name="City"
-                                label="Enter city (ex. Moscow)"
-                                variant="outlined"
-                                onChange={(e) => {
-                                    setSearchText(e.target.value);
-                                }}
-                            />
-                        </Grid>
-                        <Grid item>
-                            <TextField
-                                fullWidth
-                                label="Name"
-                                variant="outlined"
-                                onChange={(e) => {
-                                    setConfig((prev) => ({ ...prev, name: e.target.value }));
-                                }}
-                            />
-                        </Grid>
-                        <Grid item>
-                            <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Type</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={config.type}
-                                    label="Type"
+                <Modal open={modalState} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+                    <Box sx={style}>
+                        <Typography id="modal-modal-title" variant="h6" color="text.secondary">
+                            Add new chart
+                        </Typography>
+                        <Grid container spacing={2} flexDirection="column">
+                            <Grid item>
+                                <TextField
+                                    fullWidth
+                                    name="City"
+                                    label="Enter city (ex. Moscow)"
+                                    variant="outlined"
                                     onChange={(e) => {
-                                        setConfig((prev) => ({ ...prev, type: e.target.value, id: uuidv4() }));
+                                        setSearchText(e.target.value);
                                     }}
-                                >
-                                    <MenuItem value={'line'}>Line</MenuItem>
-                                    <MenuItem value={'column'}>Column</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item>
-                            <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Color</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={config.color}
-                                    label="Color"
+                                />
+                            </Grid>
+                            <Grid item>
+                            </Grid>
+                            <Grid item>
+                                <TextField
+                                    fullWidth
+                                    label="Name"
+                                    variant="outlined"
                                     onChange={(e) => {
-                                        setConfig((prev) => ({ ...prev, color: e.target.value }));
+                                        setConfig((prev) => ({ ...prev, name: e.target.value }));
                                     }}
-                                >
-                                    <MenuItem value={'red'}>Red</MenuItem>
-                                    <MenuItem value={'green'}>Green</MenuItem>
-                                    <MenuItem value={'yellow'}>Yellow</MenuItem>
-                                </Select>
-                            </FormControl>
+                                />
+                            </Grid>
+                            <Grid item>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Type</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={config.type}
+                                        label="Type"
+                                        onChange={(e) => {
+                                            setConfig((prev) => ({ ...prev, type: e.target.value}));
+                                        }}
+                                    >
+                                        <MenuItem value={'line'}>Line</MenuItem>
+                                        <MenuItem value={'column'}>Column</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Color</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={config.color}
+                                        label="Color"
+                                        onChange={(e) => {
+                                            setConfig((prev) => ({ ...prev, color: e.target.value }));
+                                        }}
+                                    >
+                                        <MenuItem value={'red'}>Red</MenuItem>
+                                        <MenuItem value={'green'}>Green</MenuItem>
+                                        <MenuItem value={'yellow'}>Yellow</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Data</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={config.typeChart}
+                                        label="Color"
+                                        onChange={(e) => {
+                                            setConfig((prev) => ({ ...prev, typeChart: e.target.value }));
+                                        }}
+                                    >
+                                        <MenuItem value={'temp'}>Temprature</MenuItem>
+                                        <MenuItem value={'humidity'}>Humidity</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item>
+                                <Button variant="contained" onClick={handleClick}>
+                                    OK
+                                </Button>
+                            </Grid>
                         </Grid>
-                        <Grid item>
-                            <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Data</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={config.typeChart}
-                                    label="Color"
-                                    onChange={(e) => {
-                                        setConfig((prev) => ({ ...prev, typeChart: e.target.value }));
-                                    }}
-                                >
-                                    <MenuItem value={'temp'}>Temprature</MenuItem>
-                                    <MenuItem value={'humidity'}>Humidity</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item>
-                            <Button variant="contained" onClick={handleClick}>
-                                OK
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </Modal>
+                    </Box>
+                </Modal>
         </div>
     );
 }
