@@ -1,66 +1,80 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { Button, Typography } from "@mui/material";
-import { ThemeProvider } from "@mui/material/styles";
 import EmptyPage from '../EmptyPage';
-import AspectRatio from '@mui/joy/AspectRatio';
-import Card from '@mui/joy/Card';
-import CardOverflow from '@mui/joy/CardOverflow';
-
-const ItemTitle = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: 'center',
-  fontSize: '20',
-  color: '#dd0f6f',
-}));
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: 'center',
-  fontSize: '20',
-  color: theme.palette.text.secondary,
-}));
+import { Card as CardMUI } from '@mui/material';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
+import LocationCityIcon from '@mui/icons-material/LocationCity';
 
 
-export default function Settings({ handleOpen, forecasts, theme, handleDelete, handleOpenEditModal }) {
-
+export default function Settings({ handleOpen, forecasts, theme, handleDelete, handleOpenEditModal, }) {
   return (
-    <>
+    <div>
       {forecasts.length > 0 ? (
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={4}>
-            <Grid item xs={6} style={{ marginLeft: "30px", marginTop: "" }}>
-              {forecasts.map((el) => {
-                return <Card variant="outlined" sx={{ width: 320 }} key={el.id}>
-                  <CardOverflow>
-                    <AspectRatio ratio="2">
-                      <img
-                        src="https://images.unsplash.com/photo-1532614338840-ab30cf10ed36?auto=format&fit=crop&w=318"
-                        srcSet="https://images.unsplash.com/photo-1532614338840-ab30cf10ed36?auto=format&fit=crop&w=318&dpr=2 2x"
-                        loading="lazy"
-                        alt=""
-                      />
-                    </AspectRatio>
-                  </CardOverflow>
-                  <Typography level="h2" sx={{ fontSize: 'md', mt: 2 }}>
-                    {el.name}
-                  </Typography>
-
-                  <Button color='warning' className='buttonMUI' size='small' onClick={() => handleDelete(el.id)}>Delete</Button>
-                  <Button color='secondary' className='buttonMUI' size='small' onClick={handleOpenEditModal}>Edit</Button>
-                </Card>
-              })}
-            </Grid>
-          </Grid>
-          <Button color='secondary' className='buttonMUI' onClick={handleOpen} variant="outlined" style={{ marginLeft: "30px", marginTop: "20px" }}> Add Chart </Button>
+        <>
+        <Box sx={{
+          flexGrow: 1,
+          display: 'flex',
+          justifyContent: 'center',
+          gap: 2,
+        }}>
+        <Typography variant="h2" gutterBottom>Your charts</Typography>
         </Box>
+        <Box sx={{
+          flexGrow: 1,
+          display: 'flex',
+          flexDirection:'column',
+          justifyContent: 'center',
+          gap: 2,
+          flexWrap: 'wrap',
+          marginLeft: '40px',
+        }}>
+          {forecasts.map((el) => {
+            return <CardMUI sx={{ maxWidth: 250 }} key={el.id}>
+            <CardContent>
+              <Typography gutterBottom variant='h4' component='div'>
+                {el.name}
+              </Typography>
+              <Typography gutterBottom variant='h5' component='div'>
+                <LocationCityIcon fontSize='small' /> 
+                {el.forecast?.city.name}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button onClick={() => handleDelete(el.id)} variant='contained' color='secondary' size='small'>
+                Delete
+              </Button>
+              <IconButton aria-label='add to favorites' onClick={handleOpenEditModal}>
+                <EditIcon />
+              </IconButton>
+            </CardActions>
+          </CardMUI>
+          //   return  <div className={style.chart__item}>
+          //   <Typography
+          //     id="basic-list-demo"
+          //     level="body3"
+          //     textTransform="uppercase"
+          //     fontWeight="lg"
+          //     textAlign='center'
+          //   >
+          //    {el.name}
+          //   </Typography>
+          //   {/* <List aria-labelledby="basic-list-demo"> */}
+          //     <Button onClick={() => handleDelete(el.id)} color='secondary' size='small'>
+          //         Delete
+          //       </Button>
+          //       <IconButton aria-label='add to favorites' onClick={handleOpenEditModal}>
+          //         <EditIcon />
+          //       </IconButton>
+          //   {/* </List> */}
+          // </div>
+          })}
+        </Box>
+        </>
       ) : (
         <Grid container>
           <Grid item xs={12} sm={6} lg={6} style={{ margin: "0 auto" }}>
@@ -69,7 +83,7 @@ export default function Settings({ handleOpen, forecasts, theme, handleDelete, h
         </Grid>
       )
       }
-    </>
+    </div>
   );
 }
 

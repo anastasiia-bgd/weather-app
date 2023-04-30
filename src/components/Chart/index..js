@@ -26,14 +26,17 @@ export default function Chart({ forecast, type, name, color, typeChart }) {
         },
         yAxis: {
             title: {
-                text: "°C",
+                text: typeChart === 'temp' ? "°C" : "φ"
             },
         },
         series: [
             {
                 name: "data",
                 data: forecast.list?.map((el) => {
-                    return el.main.temp
+                    if (typeChart === 'temp') {
+                        return el.main.temp
+                    }
+                    return el.main.humidity
                 }),
                 color: `${color}`,
             },
@@ -46,3 +49,4 @@ export default function Chart({ forecast, type, name, color, typeChart }) {
         </div>
     );
 }
+// "°C" "φ"

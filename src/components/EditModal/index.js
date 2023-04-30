@@ -15,7 +15,7 @@ const style = {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 500,
-    height: 500,
+    height: 400,
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -25,7 +25,7 @@ const style = {
 export default function EditModal({ handleClose, setForecasts, setConfig, config, editModalState }) {
 
     const handleClick = () => {
-        setForecasts((prev) => [config]);
+        setForecasts((prev) => [...prev, config]);
         handleClose();
     };
 
@@ -50,17 +50,17 @@ export default function EditModal({ handleClose, setForecasts, setConfig, config
                         </Grid>
                         <Grid item>
                         <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Index</InputLabel>
+                                <InputLabel id="demo-simple-select-label">Data</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    value={config.type}
+                                    value={config.typeChart}
                                     label="Index"
                                     onChange={(e) => {
                                         setConfig((prev) => ({ ...prev, typeChart: e.target.value }));
                                     }}
                                 >
-                                    <MenuItem value={'temp'}>Temprature</MenuItem>
+                                    <MenuItem value={'temp'}>Tempreture</MenuItem>
                                     <MenuItem value={'humidity'}>Humidity</MenuItem>
                                 </Select>
                             </FormControl>

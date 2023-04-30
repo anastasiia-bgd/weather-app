@@ -8,8 +8,10 @@ import MainPage from "./components/MainPage";
 import Modal from "./components/Modal";
 import { createTheme } from "@mui/material/styles";
 import EditModal from "./components/EditModal";
+import dayjs from 'dayjs';
 
 import DataFilter from "./components/DataFilter"
+
 
 function App({children}) {
     const theme = createTheme({
@@ -26,6 +28,8 @@ function App({children}) {
     const [modalState, setModalState] = useState(false);
     const [editModalState, setEditModalState] = useState(false);
     const [forecasts, setForecasts] = useState([]);
+    // const [startDate, setStartDate] = useState(dayjs())
+    // const [endDate, setEndDate] = useState(setStartDate(startDate.add(5, 'day')))
     const [config, setConfig] = useState({
         name: "",
         type: "",
@@ -34,6 +38,7 @@ function App({children}) {
         typeChart:'',
         forecast: {}
     });
+
 
 
     const handleOpenModal = () => setModalState(true);
@@ -50,6 +55,7 @@ function App({children}) {
         <div className="app">
             <div className="container">
                 <Header location={location} setLocation={setLocation} handleOpen={handleOpenModal} />
+               
                 <Routes>
                     <Route path="/" element={<MainPage forecast={forecast} handleOpen={handleOpenModal} forecasts={forecasts} />} />
                     <Route path="/settings" element={<Settings handleOpen={handleOpenModal} forecasts={forecasts}

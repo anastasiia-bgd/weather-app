@@ -1,7 +1,6 @@
 import {Grid} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Chart from "../Chart/index.";
-import Empty from "../EmptyPage";
 import EmptyPage from "../EmptyPage";
 
 
@@ -14,6 +13,7 @@ console.log(forecasts);
         setData(forecasts);
     }, [forecasts]);
 
+    console.log(data);
     return (
         <>
             {data.length > 0 ? (

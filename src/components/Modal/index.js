@@ -9,11 +9,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import dayjs from 'dayjs';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 
 const style = {
     position: "absolute",
@@ -84,6 +80,21 @@ export default function BasicModal({ modalState, handleClose, setForecasts, conf
                                 />
                             </Grid>
                             <Grid item>
+                            <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Data</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={config.typeChart}
+                                        label="Color"
+                                        onChange={(e) => {
+                                            setConfig((prev) => ({ ...prev, typeChart: e.target.value }));
+                                        }}
+                                    >
+                                        <MenuItem value={'temp'}>Tempreture</MenuItem>
+                                        <MenuItem value={'humidity'}>Humidity</MenuItem>
+                                    </Select>
+                                </FormControl>
                             </Grid>
                             <Grid item>
                                 <TextField
@@ -127,23 +138,6 @@ export default function BasicModal({ modalState, handleClose, setForecasts, conf
                                         <MenuItem value={'red'}>Red</MenuItem>
                                         <MenuItem value={'green'}>Green</MenuItem>
                                         <MenuItem value={'yellow'}>Yellow</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            <Grid item>
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">Data</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        value={config.typeChart}
-                                        label="Color"
-                                        onChange={(e) => {
-                                            setConfig((prev) => ({ ...prev, typeChart: e.target.value }));
-                                        }}
-                                    >
-                                        <MenuItem value={'temp'}>Temprature</MenuItem>
-                                        <MenuItem value={'humidity'}>Humidity</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Grid>
