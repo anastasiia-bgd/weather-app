@@ -31,15 +31,15 @@ export default function Settings({ handleOpen, forecasts, theme, handleDelete, h
           justifyContent: 'center',
           gap: 2,
           flexWrap: 'wrap',
-          marginLeft: '40px',
+          marginLeft: '30px',
         }}>
           {forecasts.map((el) => {
-            return <CardMUI sx={{ maxWidth: 250 }} key={el.id}>
+            return <CardMUI sx={{ maxWidth: 300 }} key={el.id}>
             <CardContent>
-              <Typography gutterBottom variant='h4' component='div'>
-                {el.name}
-              </Typography>
               <Typography gutterBottom variant='h5' component='div'>
+                Chart name: {el.name}
+              </Typography>
+              <Typography gutterBottom variant='h6' component='div'>
                 <LocationCityIcon fontSize='small' /> 
                 {el.forecast?.city.name}
               </Typography>

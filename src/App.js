@@ -83,6 +83,7 @@ function App({children}) {
                 setEditModalState={setEditModalState}
                 handleOpen={handleOpenEditModal}
                 handleClose={handleCloseEditModal}
+                forecasts={forecasts}
                 />
             </div>
         </div>

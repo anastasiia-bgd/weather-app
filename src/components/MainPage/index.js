@@ -1,4 +1,4 @@
-import {Grid} from "@mui/material";
+import {Grid, Typography} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Chart from "../Chart/index.";
 import EmptyPage from "../EmptyPage";
@@ -19,7 +19,7 @@ console.log(forecasts);
             {data.length > 0 ? (
                 data.map((el) => (
                     <Grid item key={el.id} xs={12} sm={6} lg={6} style={{ marginLeft: "30px", marginRight: "30px" }} >
-                        {el.forecast?.city?.name}
+                        <Typography variant="h5">{el.forecast?.city?.name}</Typography>
                         <Grid item style={{ margin: "0 auto" }}>
                             <Chart forecast={el.forecast} type={el.type} name={el.name} color={el.color} typeChart={el.typeChart} />
                         </Grid>

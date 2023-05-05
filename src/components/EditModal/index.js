@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -22,7 +22,22 @@ const style = {
     p: 4,
 };
 
-export default function EditModal({ handleClose, setForecasts, setConfig, config, editModalState }) {
+export default function EditModal({ handleClose, setForecasts, setConfig, config, editModalState, forecasts }) {
+    console.log(config);
+   const [name, setName] = useState(config.name)
+   const [data, setData] = useState('')
+   const [type, setType] = useState('')
+   const [color, setColor]  = useState('')
+
+//    useEffect(() => {
+//     if (config.id === idChart) {
+//       setName(config.name);
+//       setData(config.typeChart);
+//       setType(config.type);
+//       setColor(config.color);
+//     }
+//   }, [config, idChart]);
+  
 
     const handleClick = () => {
         setForecasts((prev) => [...prev, config]);
@@ -41,10 +56,10 @@ export default function EditModal({ handleClose, setForecasts, setConfig, config
                             <TextField
                                 label="Name"
                                 fullWidth
-                                value={config.name}
+                                value={name}
                                 variant="outlined"
-                                onChange={(e) => {
-                                    setConfig((prev) => ({ ...prev, name: e.target.value }));
+                                onChange={({target}) => {
+                                    setName(target.value);
                                 }}
                             />
                         </Grid>
@@ -54,8 +69,8 @@ export default function EditModal({ handleClose, setForecasts, setConfig, config
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    value={config.typeChart}
-                                    label="Index"
+                                    value={data}
+                                    label="Data"
                                     onChange={(e) => {
                                         setConfig((prev) => ({ ...prev, typeChart: e.target.value }));
                                     }}
@@ -71,7 +86,7 @@ export default function EditModal({ handleClose, setForecasts, setConfig, config
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    value={config.type}
+                                    value={type}
                                     label="Type"
                                     onChange={(e) => {
                                         setConfig((prev) => ({ ...prev, type: e.target.value }));
@@ -88,7 +103,7 @@ export default function EditModal({ handleClose, setForecasts, setConfig, config
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    value={config.color}
+                                    value={color}
                                     label="Color"
                                     onChange={(e) => {
                                         setConfig((prev) => ({ ...prev, color: e.target.value }));
