@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import style from './style.module.css'
 import { Button } from "@mui/material";
 
-export const Header = ({handleOpen}) => {
+export const Header = ({ handleOpen }) => {
     return (
         <div className={style.header}>
             <Button color='secondary' className='buttonMUI' onClick={handleOpen} variant="outlined"> Add Chart </Button>

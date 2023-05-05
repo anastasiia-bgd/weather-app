@@ -1,19 +1,16 @@
-import {Grid, Typography} from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Chart from "../Chart/index.";
 import EmptyPage from "../EmptyPage";
 
 
 export default function MainPage({ forecasts }) {
-console.log(forecasts);
-
     const [data, setData] = useState([]);
 
     useEffect(() => {
         setData(forecasts);
     }, [forecasts]);
 
-    console.log(data);
     return (
         <>
             {data.length > 0 ? (

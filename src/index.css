@@ -28,21 +28,7 @@ h1 {
   position: relative;
   background-color: white;
   color: black;
-  /* display: flex;
-  justify-content: space-between; */
 }
-
-/* .app:before {
-  content: '';
-  background: url('./images/background.jpg') no-repeat center center/cover;
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  z-index: -1;
-} */
-
 
 ::placeholder {
   color: #f8f8f8;
@@ -54,8 +40,6 @@ h1 {
   margin: 0 auto;
   padding: 0;
   background-color:rgb(250, 249, 249);
-  /* position: relative; */
-  /* top: 10%; */ 
 }
 
 .buttonMUI {
@@ -64,32 +48,9 @@ h1 {
   height: 40px;
 }
 
-/* .app .top {
-  width: 100%;
-  margin: 1rem auto;
-} */
-
-/* .app .description {
-  position: relative;
-  right: -90%;
-  transform-origin: 0 0;
-  transform: rotate(269deg);
-} */
-
-/* .app .bottom {
-  display: flex;
-  justify-content: space-evenly;
-  text-align: center;
-  width: 100%;
-  margin: 20px auto;
-  border-radius: 12px;
-  background-color: rgba(255,255,255, 0.2);
-} */
-
 .bold {
   font-weight: 700;
 }
-
 
 .main {
 display: flex;
@@ -100,15 +61,12 @@ align-items: center;
 
 .setting_container {
   display: flex;
-  /* height: 100vh; */
 }
 
 .main__info_city {
  padding: 30px;
 }
-/* .charts__container {
-  padding-top: 30px;
-} */
+
 
 .chart__container {
   padding-top: 30px;

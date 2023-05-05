@@ -22,26 +22,43 @@ const style = {
     p: 4,
 };
 
-export default function EditModal({ handleClose, setForecasts, setConfig, config, editModalState, forecasts }) {
-    console.log(config);
-   const [name, setName] = useState(config.name)
-   const [data, setData] = useState('')
-   const [type, setType] = useState('')
-   const [color, setColor]  = useState('')
+export default function EditModal({ handleClose, setForecasts, setConfig, config, editModalState, forecasts, currentId }) {
 
-//    useEffect(() => {
-//     if (config.id === idChart) {
-//       setName(config.name);
-//       setData(config.typeChart);
-//       setType(config.type);
-//       setColor(config.color);
-//     }
-//   }, [config, idChart]);
-  
+    const [currentForecast, setCurrentForecast] = useState('')
+
+    useEffect(() => {
+        setCurrentForecast(forecasts.find((el) => el.id === currentId))
+    }, [currentId, forecasts]);
+
+    useEffect(() => {
+        setCurrentForecast(currentForecast)
+    }, [currentForecast, forecasts])
+
+    const handleChange = (e) => {
+        switch (e.target.name) {
+            case 'name':
+                setCurrentForecast((prev) => ({ ...prev, name: e.target.value }))
+                break;
+            case 'typeChart':
+                setCurrentForecast((prev) => ({ ...prev, typeChart: e.target.value }))
+                break;
+            case 'type':
+                setCurrentForecast((prev) => ({ ...prev, type: e.target.value }))
+                break;
+            case 'color':
+                setCurrentForecast((prev) => ({ ...prev, color: e.target.value }))
+                break;
+            default:
+                break;
+        }
+    };
 
     const handleClick = () => {
-        setForecasts((prev) => [...prev, config]);
-        handleClose();
+        let index = forecasts.findIndex(el => el.id === currentId)
+        console.log(index);
+        forecasts.splice(index, 1, currentForecast)
+        setForecasts(forecasts)
+        handleClose()
     };
 
     return (
@@ -55,42 +72,39 @@ export default function EditModal({ handleClose, setForecasts, setConfig, config
                         <Grid item>
                             <TextField
                                 label="Name"
+                                name='name'
                                 fullWidth
-                                value={name}
+                                value={currentForecast && currentForecast.name}
                                 variant="outlined"
-                                onChange={({target}) => {
-                                    setName(target.value);
-                                }}
+                                onChange={handleChange}
                             />
                         </Grid>
                         <Grid item>
-                        <FormControl fullWidth>
+                            <FormControl fullWidth name='typeChart'>
                                 <InputLabel id="demo-simple-select-label">Data</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
+                                    name='typeChart'
                                     id="demo-simple-select"
-                                    value={data}
+                                    value={currentForecast && currentForecast.typeChart}
                                     label="Data"
-                                    onChange={(e) => {
-                                        setConfig((prev) => ({ ...prev, typeChart: e.target.value }));
-                                    }}
+                                    onChange={handleChange}
                                 >
                                     <MenuItem value={'temp'}>Tempreture</MenuItem>
                                     <MenuItem value={'humidity'}>Humidity</MenuItem>
                                 </Select>
                             </FormControl>
-                            </Grid>
-                            <Grid item>
-                            <FormControl fullWidth>
+                        </Grid>
+                        <Grid item>
+                            <FormControl fullWidth name='type'>
                                 <InputLabel id="demo-simple-select-label">Type</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    value={type}
+                                    name='type'
+                                    value={currentForecast && currentForecast.type}
                                     label="Type"
-                                    onChange={(e) => {
-                                        setConfig((prev) => ({ ...prev, type: e.target.value }));
-                                    }}
+                                    onChange={handleChange}
                                 >
                                     <MenuItem value={'line'}>Line</MenuItem>
                                     <MenuItem value={'column'}>Column</MenuItem>
@@ -98,16 +112,15 @@ export default function EditModal({ handleClose, setForecasts, setConfig, config
                             </FormControl>
                         </Grid>
                         <Grid item>
-                            <FormControl fullWidth>
+                            <FormControl fullWidth name='color'>
                                 <InputLabel id="demo-simple-select-label">Color</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
+                                    name='color'
                                     id="demo-simple-select"
-                                    value={color}
+                                    value={currentForecast && currentForecast.color}
                                     label="Color"
-                                    onChange={(e) => {
-                                        setConfig((prev) => ({ ...prev, color: e.target.value }));
-                                    }}
+                                    onChange={handleChange}
                                 >
                                     <MenuItem value={'red'}>Red</MenuItem>
                                     <MenuItem value={'green'}>Green</MenuItem>
