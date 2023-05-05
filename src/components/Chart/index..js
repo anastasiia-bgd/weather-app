@@ -21,7 +21,7 @@ export default function Chart({ forecast, type, name, color, typeChart }) {
         xAxis: {
             categories: forecast.list?.map((el) => {
                 let date = el.dt_txt;
-                return dayjs(date).format("DD/MM/YYYY");
+                return dayjs(date);
             }),
         },
         yAxis: {
